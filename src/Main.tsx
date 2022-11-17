@@ -64,12 +64,12 @@ const theme = createTheme({
 const Main: React.FC = () => {
   // Generate Order Data
 
-  const [tasks, settasks] = useState([{ id: 1, value: 'content field' ,edit:true}])
+  const [tasks, settasks] = useState([{ id: 1, value: 'content field', edit: true }])
   const [anchorEl, setAnchorEL] = useState(null)
   const isMenuOpen = Boolean(anchorEl)
   const [currentRow, setCurrentRow] = React.useState(null)
 
-  const [editid,seteditid] = React.useState(null)
+  const [editid, seteditid] = React.useState(null)
 
   const list: any[] = []
 
@@ -78,7 +78,7 @@ const Main: React.FC = () => {
   }
 
   const createtaskobject = () => {
-    return { id: tasks.length + 1, value: '' ,edit:true}
+    return { id: tasks.length + 1, value: '', edit: true }
   }
 
   const addtask = () => {
@@ -94,43 +94,40 @@ const Main: React.FC = () => {
     setCurrentRow(null)
   }
 
-  const handledelete = (e: any,task:any) => {
+  const handledelete = (e: any, task: any) => {
     e.preventDefault()
-    
-    const newlist = tasks.filter((i)=>{
-      console.log(i.id!=task.id);
-      return i.id != task.id 
+
+    const newlist = tasks.filter((i) => {
+      console.log(i.id != task.id)
+      return i.id != task.id
     })
 
-    settasks(newlist);
+    settasks(newlist)
   }
 
-  const handleOpenMenu = (event: any, row:any) => {
+  const handleOpenMenu = (event: any, row: any) => {
     setAnchorEL(event.currentTarget)
     setCurrentRow(row)
   }
 
-  const handleEdit = (task:any) => {
-
-    const newtask = {...task,edit: true,}
+  const handleEdit = (task: any) => {
+    const newtask = { ...task, edit: true }
     const newtasks = tasks.map((_task) => {
-      return _task.id === newtask.id ? {...newtask } : { ..._task };
-    });
+      return _task.id === newtask.id ? { ...newtask } : { ..._task }
+    })
 
-    settasks(newtasks);
+    settasks(newtasks)
   }
 
-  const handleCreate = (task:any) => {
-    const newtask = {...task,edit:false};
+  const handleCreate = (task: any) => {
+    const newtask = { ...task, edit: false }
 
-    console.log(tasks);
-    
-    const newtasks = tasks.map(
-      (_task,index)=>{
-        return _task.id === newtask.id ? {...newtask} : {..._task};
-      }
-    )
-    settasks(newtasks);
+    console.log(tasks)
+
+    const newtasks = tasks.map((_task, index) => {
+      return _task.id === newtask.id ? { ...newtask } : { ..._task }
+    })
+    settasks(newtasks)
   }
 
   // const renderMenu = (
@@ -151,8 +148,8 @@ const Main: React.FC = () => {
   // for(const task in tasks){
 
   // const taskitem = {
-   
-  // } 
+
+  // }
 
   tasks.forEach((task, index) => {
     list.push(
@@ -188,36 +185,35 @@ const Main: React.FC = () => {
             <MoreHorizIcon />
           </IconButton>
           <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={currentRow === task}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={e => handledelete(e,task)}>削除</MenuItem>
-      <MenuItem onClick={e => handleEdit(task)}>編集</MenuItem>
-      <MenuItem onClick={e => handleCreate(task)}>作成</MenuItem>
-      
-    </Menu>
-    </Box>
+            anchorEl={anchorEl}
+            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            id={menuId}
+            keepMounted
+            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+            open={currentRow === task}
+            onClose={handleMenuClose}
+          >
+            <MenuItem onClick={(e) => handledelete(e, task)}>削除</MenuItem>
+            <MenuItem onClick={(e) => handleEdit(task)}>編集</MenuItem>
+            <MenuItem onClick={(e) => handleCreate(task)}>作成</MenuItem>
+          </Menu>
+        </Box>
 
-    <Box>
-    { task.edit ? <Edit {...task} /> : <Typo {...task}/> }
-    </Box>
+        <Box>{task.edit ? <Edit {...task} /> : <Typo {...task} />}</Box>
 
-
+        <Button 
+        onClick={e => handleCreate(task)}
+        variant="contained" 
+        sx={{mb:"20px",ml:"auto",mt:"auto",width:"120px",fontSize:"3px"}}>タスクカード作成</Button>
       </Paper>
     )
   })
 
   const TaskBottom = (
     <Box>
-    <Button variant="contained"></Button>
+      <Button variant="contained"></Button>
     </Box>
   )
-
 
   return (
     <ThemeProvider theme={theme}>
@@ -227,20 +223,14 @@ const Main: React.FC = () => {
 
       <Grid container spacing={0}>
         <Grid item xs={12} md={8}>
-          <Box sx={{ backgroundColor: 'white', height: '100vh', mx: 5, mt: 5 }}>
+          <Box sx={{ 
+            backgroundColor: 'white', 
+            height: '100vh', 
+            mx: 5, 
+            mt: 5 }}>
+
             {list}
-            {/* {tasks.forEach((item,index)=>{
-              return (
-               <Paper elevation={3} sx={{
-                p:2,
-                display:"flex",
-                flexDirection:"column",
-                height:"240px",
-              }}>
-              </Paper>
-              )
-            })
-            } */}
+         
             <Fab color="primary" variant="extended" sx={{ mt: 3 }} onClick={addtask}>
               <AddIcon />
               Task
@@ -257,37 +247,3 @@ const Main: React.FC = () => {
 }
 
 export default Main
-
-{
-  /* <NavLink to="/" style={({ isActive }) =>
-        isActive ? current : undefined}>navlink</NavLink> */
-}
-
-{
-  /* <Drawer variant="permanent" open={open}anchor="left">
-          <Toolbar
-          sx={{display:'flex',alignItems:'center',justifyContent:'flex-end',px:[1],}}>
-
-            <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </Toolbar>
-          <List component="nav">
-            {mainListItems}
-            <Divider sx={{ my: 1 }} />
-             {secondaryListItems}
-          </List> Hello world side</Drawer> */
-}
-
-{
-  /* <Card sx={{minWidth:275}}>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          Word of the Day
-        </Typography>
-        </Card>
-        <Fab>
-          <AddIcon />
-        </Fab>
-        <Container>
-        </Container> */
-}

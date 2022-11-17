@@ -1,20 +1,19 @@
 import React from 'react'
-import { Typography } from '@mui/material'
+import { Typography,Box } from '@mui/material'
 
 // rafce
 type Content = {
-    id:number;
-    value:string;
-    edit:boolean;
-  };
+  id: number
+  value: string
+  edit: boolean
+}
 
-
-const Typo = (props:Content) => {
+const Typo = (props: Content) => {
   return (
-    <div>
-        <Typography>{props.value}</Typography>
-      
-    </div>
+    <Box>
+      <Typography>仕事内容</Typography>
+      <Typography>{props.value}</Typography>
+    </Box>
   )
 }
 

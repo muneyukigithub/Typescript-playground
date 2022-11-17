@@ -1,17 +1,21 @@
 import React from 'react'
-import { TextField } from '@mui/material';
+import { Box, TextField, Typography } from '@mui/material'
 
 type Content = {
-  id:number;
-  value:string;
-  edit:boolean;
-};
+  id: number
+  value: string
+  edit: boolean
+}
 
-const Edit = (props:Content) => {
+const Edit = (props: Content) => {
   return (
-    <div>
-      <TextField variant="standard" label="Taskを入力してください" sx={{width:"200px"}}/>
-    </div>
+    <Box sx={{display:"flex",flexFlow:"column"}}>
+      {/* <Typography>仕事内容</Typography> */}
+      <TextField variant="standard" label="Task" sx={{ width: '200px'}} />
+      {/* <Typography sx={{}}>細分化タスク</Typography> */}
+      <TextField variant="standard" label="small Task" sx={{ width: '200px' }} />
+
+    </Box>
   )
 }
 
