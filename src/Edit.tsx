@@ -9,12 +9,11 @@ type Content = {
 
 const Edit = (props: Content) => {
   return (
-    <Box sx={{display:"flex",flexFlow:"column"}}>
+    <Box sx={{ display: 'flex', flexFlow: 'column' }}>
       {/* <Typography>仕事内容</Typography> */}
-      <TextField variant="standard" label="Task" sx={{ width: '200px'}} />
+      <TextField variant="standard" label="Task" sx={{ width: '200px' }} />
       {/* <Typography sx={{}}>細分化タスク</Typography> */}
       <TextField variant="standard" label="small Task" sx={{ width: '200px' }} />
-
     </Box>
   )
 }

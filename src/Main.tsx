@@ -1,7 +1,11 @@
 import { Link, NavLink } from 'react-router-dom'
 import { FC, ReactNode, useState } from 'react'
 import React from 'react'
+import SearchIcon from '@mui/icons-material/Search'
+import CssBaseline from '@mui/material/CssBaseline';
 import {
+
+  InputBase,
   Menu,
   MenuItem,
   Paper,
@@ -201,10 +205,15 @@ const Main: React.FC = () => {
 
         <Box>{task.edit ? <Edit {...task} /> : <Typo {...task} />}</Box>
 
-        <Button 
-        onClick={e => handleCreate(task)}
-        variant="contained" 
-        sx={{mb:"20px",ml:"auto",mt:"auto",width:"120px",fontSize:"3px"}}>タスクカード作成</Button>
+        {task.edit ?
+          <Button
+          onClick={(e) => handleCreate(task)}
+          variant="contained"
+          sx={{ mb: '20px', ml: 'auto', mt: 'auto', width: '120px', fontSize: '3px' }}
+        >
+          タスクカード作成
+        </Button> : "" }
+
       </Paper>
     )
   })
@@ -215,22 +224,67 @@ const Main: React.FC = () => {
     </Box>
   )
 
+
+  
+
   return (
-    <ThemeProvider theme={theme}>
-      <AppBar position="relative">
-        <Toolbar></Toolbar>
+    <>
+    <CssBaseline />
+      <AppBar position="relative" sx={{backgroundColor:"#fff",p:0,boxShadow:"0"}}>
+        <Toolbar sx={{ml:"16px"}}>
+
+          <Box sx={{
+              
+              backgroundColor:"#EEEEEE",
+              borderRadius:"46px",
+              width:"70%",
+              display:"inline-flex",
+              }}> 
+
+                <Box sx={{
+                  py:"5px",
+                  pl:"25px",
+                  display:"flex",
+                  justifyContent:"center",
+                  
+                  }}>
+                <SearchIcon color="primary" />
+            </Box> 
+            <InputBase placeholder="Search…" 
+ 
+            />
+            
+          </Box>
+          <Box sx={{ flexGrow: 1 }} />
+
+
+          <Box sx={{display:"flex"}}>
+          <Button variant="contained" sx={{width:"100px",ml:"20px"}}>使い方</Button>
+          <Button variant="contained" sx={{width:"100px",ml:"20px"}}>ログイン</Button>
+          </Box>
+        </Toolbar>
       </AppBar>
 
-      <Grid container spacing={0}>
-        <Grid item xs={12} md={8}>
-          <Box sx={{ 
-            backgroundColor: 'white', 
-            height: '100vh', 
-            mx: 5, 
-            mt: 5 }}>
+      
 
+      <Grid container spacing={0}>
+        <Grid item xs={12} md={9}>
+          <Box
+            sx={{
+              backgroundColor: 'white',
+              height: '100vh',
+              mx: 5,
+              mt: 1,
+            }}
+          >
+
+            <Typography sx={{
+            mb:"30px",
+            fontSize:"30px",
+            fontFamily:"Roboto, system-ui,Hiragino Kaku Gothic ProN,sans-serif;"
+            }}>タスクカード</Typography>
             {list}
-         
+
             <Fab color="primary" variant="extended" sx={{ mt: 3 }} onClick={addtask}>
               <AddIcon />
               Task
@@ -238,11 +292,11 @@ const Main: React.FC = () => {
           </Box>
         </Grid>
 
-        <Grid item xs={0} md={4}>
-          <Box sx={{ backgroundColor: '#EEEEEE', height: '100vh' }}></Box>
+        <Grid item xs={0} md={3}>
+          <Box sx={{ backgroundColor: '#EEEEEE', height: '100vh',minWidth:"" }}></Box>
         </Grid>
       </Grid>
-    </ThemeProvider>
+    </>
   )
 }
 
