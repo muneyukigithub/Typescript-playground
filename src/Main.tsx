@@ -2,9 +2,8 @@ import { Link, NavLink } from 'react-router-dom'
 import { FC, ReactNode, useState } from 'react'
 import React from 'react'
 import SearchIcon from '@mui/icons-material/Search'
-import CssBaseline from '@mui/material/CssBaseline';
+import CssBaseline from '@mui/material/CssBaseline'
 import {
-
   InputBase,
   Menu,
   MenuItem,
@@ -30,8 +29,20 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import { mainListItems, secondaryListItems } from './listi'
 import AccountCircle from '@mui/icons-material/AccountCircle'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
-import Typo from './Typo'
-import Edit from './Edit'
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+
+
+import { red } from '@mui/material/colors';
+
+import Typo from 'Typo'
+import Edit from 'Edit'
+
+import Maintask from 'Maintask'
+import Smalltask from 'Smalltask'
+import Motivate from 'Motivate'
+import Sample from 'Sample'
+
 
 //関数コンポーネントがchildrenを受け取る場合の型定義
 // type Props = {
@@ -134,37 +145,18 @@ const Main: React.FC = () => {
     settasks(newtasks)
   }
 
-  // const renderMenu = (
-  //   <Menu
-  //     anchorEl={anchorEl}
-  //     anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-  //     id={menuId}
-  //     keepMounted
-  //     transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-  //     open={isMenuOpen}
-  //     onClose={handleMenuClose}
-  //   >
-  //     <MenuItem onClick={handledelete}>削除</MenuItem>
-  //     <MenuItem onClick={handleMenuClose}>編集</MenuItem>
-  //   </Menu>
-  // );
-
-  // for(const task in tasks){
-
-  // const taskitem = {
-
-  // }
-
   tasks.forEach((task, index) => {
     list.push(
       <Paper
         elevation={3}
         sx={{
-          mb: 3,
-          px: 2,
+          // mb: 3,
+          px: 3,
+          pb:3,
           display: 'flex',
           flexDirection: 'column',
-          height: '240px',
+          minHeight:"240px",
+
         }}
       >
         <Box
@@ -174,7 +166,10 @@ const Main: React.FC = () => {
             justifyContent: 'flex-end',
           }}
         >
-          <IconButton
+
+          <EditIcon color="success"/>
+          <DeleteIcon sx={{color:red[500],ml:2}}/>
+          {/* <IconButton
             edge="end"
             aria-label="account of current user"
             aria-controls={menuId}
@@ -187,8 +182,8 @@ const Main: React.FC = () => {
             }}
           >
             <MoreHorizIcon />
-          </IconButton>
-          <Menu
+          </IconButton> */}
+          {/* <Menu
             anchorEl={anchorEl}
             anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
             id={menuId}
@@ -200,20 +195,46 @@ const Main: React.FC = () => {
             <MenuItem onClick={(e) => handledelete(e, task)}>削除</MenuItem>
             <MenuItem onClick={(e) => handleEdit(task)}>編集</MenuItem>
             <MenuItem onClick={(e) => handleCreate(task)}>作成</MenuItem>
-          </Menu>
+          </Menu> */}
         </Box>
+        
+        <Grid container justifyContent="center" direction="column" spacing={2}>
 
-        <Box>{task.edit ? <Edit {...task} /> : <Typo {...task} />}</Box>
 
-        {task.edit ?
+        {/* やることフェーズコンポーネント */}
+        <Grid item>
+        <Maintask />
+        </Grid>
+
+        {/* 細分化フェーズコンポーネント */}
+        <Grid item>
+        <Motivate />
+        </Grid>
+        
+        {/* 細分化フェーズコンポーネント */}
+        <Grid item>
+        <Smalltask />
+        </Grid>
+
+        </Grid>
+        
+
+
+        
+
+        {/* <Box>{task.edit ? <Edit {...task} /> : <Typo {...task} />}</Box> */}
+
+        {/* {task.edit ? (
           <Button
-          onClick={(e) => handleCreate(task)}
-          variant="contained"
-          sx={{ mb: '20px', ml: 'auto', mt: 'auto', width: '120px', fontSize: '3px' }}
-        >
-          タスクカード作成
-        </Button> : "" }
-
+            onClick={(e) => handleCreate(task)}
+            variant="contained"
+            sx={{ mb: '20px', ml: 'auto', mt: 'auto', width: '120px', fontSize: '3px' }}
+          >
+            タスクカード作成
+          </Button>
+        ) : (
+          ''
+        )} */}
       </Paper>
     )
   })
@@ -224,48 +245,43 @@ const Main: React.FC = () => {
     </Box>
   )
 
-
-  
-
   return (
     <>
-    <CssBaseline />
-      <AppBar position="relative" sx={{backgroundColor:"#fff",p:0,boxShadow:"0"}}>
-        <Toolbar sx={{ml:"16px"}}>
-
-          <Box sx={{
-              
-              backgroundColor:"#EEEEEE",
-              borderRadius:"46px",
-              width:"70%",
-              display:"inline-flex",
-              }}> 
-
-                <Box sx={{
-                  py:"5px",
-                  pl:"25px",
-                  display:"flex",
-                  justifyContent:"center",
-                  
-                  }}>
-                <SearchIcon color="primary" />
-            </Box> 
-            <InputBase placeholder="Search…" 
- 
-            />
-            
+      <CssBaseline />
+      <AppBar position="relative" sx={{ backgroundColor: '#fff', p: 0, boxShadow: '0' }}>
+        <Toolbar sx={{ ml: '16px' }}>
+          <Box
+            sx={{
+              backgroundColor: '#EEEEEE',
+              borderRadius: '46px',
+              width: '70%',
+              display: 'inline-flex',
+            }}
+          >
+            <Box
+              sx={{
+                py: '5px',
+                pl: '25px',
+                display: 'flex',
+                justifyContent: 'center',
+              }}
+            >
+              <SearchIcon color="primary" />
+            </Box>
+            <InputBase placeholder="Search…" />
           </Box>
           <Box sx={{ flexGrow: 1 }} />
 
-
-          <Box sx={{display:"flex"}}>
-          <Button variant="contained" sx={{width:"100px",ml:"20px"}}>使い方</Button>
-          <Button variant="contained" sx={{width:"100px",ml:"20px"}}>ログイン</Button>
+          <Box sx={{ display: 'flex' }}>
+            <Button variant="contained" sx={{ width: '100px', ml: '20px' }}>
+              使い方
+            </Button>
+            <Button variant="contained" sx={{ width: '100px', ml: '20px' }}>
+              ログイン
+            </Button>
           </Box>
         </Toolbar>
       </AppBar>
-
-      
 
       <Grid container spacing={0}>
         <Grid item xs={12} md={9}>
@@ -277,13 +293,18 @@ const Main: React.FC = () => {
               mt: 1,
             }}
           >
-
-            <Typography sx={{
-            mb:"30px",
-            fontSize:"30px",
-            fontFamily:"Roboto, system-ui,Hiragino Kaku Gothic ProN,sans-serif;"
-            }}>タスクカード</Typography>
+            <Typography
+              sx={{
+                mb: '30px',
+                fontSize: '30px',
+                fontFamily: 'Roboto, system-ui,Hiragino Kaku Gothic ProN,sans-serif;',
+              }}
+            >
+              タスクカード
+            </Typography>
             {list}
+
+            {/* <Sample /> */}
 
             <Fab color="primary" variant="extended" sx={{ mt: 3 }} onClick={addtask}>
               <AddIcon />
@@ -293,7 +314,7 @@ const Main: React.FC = () => {
         </Grid>
 
         <Grid item xs={0} md={3}>
-          <Box sx={{ backgroundColor: '#EEEEEE', height: '100vh',minWidth:"" }}></Box>
+          <Box sx={{ backgroundColor: '#EEEEEE', height: '100vh', minWidth: '' }}></Box>
         </Grid>
       </Grid>
     </>
