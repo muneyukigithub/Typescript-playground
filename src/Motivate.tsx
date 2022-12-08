@@ -1,7 +1,12 @@
 import React from 'react'
-import { Card ,Box,TextField} from '@mui/material'
+import { Card ,Box,TextField,Typography} from '@mui/material'
+import { Dispatch, SetStateAction } from "react";
 
-const Motivate = () => {
+
+
+const Motivate:React.FC<{editflag:boolean,seteditflag:Dispatch<SetStateAction<boolean>>,taskdata:object}> = ({editflag,seteditflag,taskdata}) => {
+    
+    
     return (
         <Card sx={{
             width:"100%",
@@ -20,6 +25,9 @@ const Motivate = () => {
             ml:2,
             mr:3
           }}>
+
+              
+          {editflag?
           <TextField
               fullWidth
               id="standard-search"
@@ -27,6 +35,8 @@ const Motivate = () => {
               type="search"
               variant="standard"
             />
+            :(<Typography>確定内容</Typography>)
+          }
             </Box>
             
         </Card>

@@ -1,8 +1,15 @@
 import React from 'react'
-import { Card ,Box,TextField} from '@mui/material'
+import { Dispatch, SetStateAction } from "react";
 
-const Maintask:React.FC = () => {
+import { Card ,Box,TextField, Typography,Button} from '@mui/material'
+
+const Maintask:React.FC<{editflag:boolean,seteditflag:Dispatch<SetStateAction<boolean>>,taskdata:object}> 
+= ({editflag,seteditflag,taskdata}) => {
+
+
+
   return (
+
     <Card sx={{
         width:"100%",
         height:"100px",
@@ -20,6 +27,8 @@ const Maintask:React.FC = () => {
         ml:2,
         mr:3
       }}>
+
+        {editflag ? (
       <TextField
           fullWidth
           id="standard-search"
@@ -27,6 +36,10 @@ const Maintask:React.FC = () => {
           type="search"
           variant="standard"
         />
+        )
+        :(<Typography>確定内容</Typography>)
+
+}
         </Box>
         
     </Card>

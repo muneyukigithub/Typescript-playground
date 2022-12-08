@@ -31,7 +31,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-
+import CheckIcon from '@mui/icons-material/Check';
 
 import { red } from '@mui/material/colors';
 
@@ -42,7 +42,7 @@ import Maintask from 'Maintask'
 import Smalltask from 'Smalltask'
 import Motivate from 'Motivate'
 import Sample from 'Sample'
-
+import { Testjson } from 'Testjson'
 
 //関数コンポーネントがchildrenを受け取る場合の型定義
 // type Props = {
@@ -76,13 +76,42 @@ const theme = createTheme({
   },
 })
 
+interface testtype {
+  name:string;
+}
+
+
+
 const Main: React.FC = () => {
   // Generate Order Data
+
+
+  const jsonsetedit = () => {
+    const test2: object[] = Testjson;
+    for(let i =0;i<Testjson.length;i++){
+      Testjson[i]= {edit:true,...Testjson[i]};
+    }
+
+    console.log(Testjson);
+  }
+
+  const getmaintaskdata = (getjson:object) =>{
+    
+    return 
+  }
+
+  
+  // test2[0] = {edit:true,...test2[0]};
+  // Testjson[0].edit
+  // console.log(test2);
 
   const [tasks, settasks] = useState([{ id: 1, value: 'content field', edit: true }])
   const [anchorEl, setAnchorEL] = useState(null)
   const isMenuOpen = Boolean(anchorEl)
   const [currentRow, setCurrentRow] = React.useState(null)
+
+  // 編集フラグ
+  const [edit,setedit] = React.useState<boolean>(true);
 
   const [editid, seteditid] = React.useState(null)
 
@@ -145,7 +174,7 @@ const Main: React.FC = () => {
     settasks(newtasks)
   }
 
-  tasks.forEach((task, index) => {
+  Testjson.forEach((task, index) => {
     list.push(
       <Paper
         elevation={3}
@@ -167,8 +196,20 @@ const Main: React.FC = () => {
           }}
         >
 
-          <EditIcon color="success"/>
-          <DeleteIcon sx={{color:red[500],ml:2}}/>
+          {
+            edit?
+            <Button onClick={()=>{setedit(!edit)}}>
+           <EditIcon color="success"/>編集する
+          </Button>
+          :<Button onClick={()=>{setedit(!edit)}}>
+          <CheckIcon color="success"/>編集を確定する
+         </Button>
+  }
+<Button onClick={()=>{setedit(!edit)}}>
+<DeleteIcon sx={{color:red[500],ml:2}}/>削除する
+         </Button>
+
+          
           {/* <IconButton
             edge="end"
             aria-label="account of current user"
@@ -202,18 +243,19 @@ const Main: React.FC = () => {
 
 
         {/* やることフェーズコンポーネント */}
+
         <Grid item>
-        <Maintask />
+        <Maintask editflag={edit} seteditflag={setedit} taskdata={task}/>
         </Grid>
 
-        {/* 細分化フェーズコンポーネント */}
+        {/* モチベータフェーズコンポーネント */}
         <Grid item>
-        <Motivate />
+        <Motivate editflag={edit} seteditflag={setedit} taskdata={task}/>
         </Grid>
         
         {/* 細分化フェーズコンポーネント */}
         <Grid item>
-        <Smalltask />
+        <Smalltask editflag={edit} seteditflag={setedit} />
         </Grid>
 
         </Grid>
