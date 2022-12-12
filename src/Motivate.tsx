@@ -2,10 +2,19 @@ import React from 'react'
 import { Card ,Box,TextField,Typography} from '@mui/material'
 import { Dispatch, SetStateAction } from "react";
 
+const Motivate:React.FC<{editflag:boolean,task_id:string,taskdata:string,motivatetaskform:any,setmotivatetaskform:any}>
+= ({editflag,task_id,taskdata,motivatetaskform,setmotivatetaskform}) => { 
 
+  console.log("Motivate.tsx");
+  
+  const handlechange =(e:any) =>{
 
-const Motivate:React.FC<{editflag:boolean,seteditflag:Dispatch<SetStateAction<boolean>>,taskdata:object}> = ({editflag,seteditflag,taskdata}) => {
-    
+    setmotivatetaskform((mapstate:any)=>mapstate.map((v:{task_id:string,form:string})=>v.task_id===task_id?
+    {...v,form:e.target.value}:v));
+    // setmaintaskform([...maintaskform,{form:e.target.value}]);
+    // setmaintaskform({...maintaskform,task_id:e.target.value})
+    // console.log(motivatetaskform);
+  }
     
     return (
         <Card sx={{
@@ -34,8 +43,10 @@ const Motivate:React.FC<{editflag:boolean,seteditflag:Dispatch<SetStateAction<bo
               label="このタスクを入力してください"
               type="search"
               variant="standard"
+              defaultValue={taskdata}
+              onChange={handlechange}
             />
-            :(<Typography>確定内容</Typography>)
+            :(<Typography>{taskdata}</Typography>)
           }
             </Box>
             

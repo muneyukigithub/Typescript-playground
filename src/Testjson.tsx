@@ -2,10 +2,46 @@ export const Testjson_2 = [
     {name:"satou"}
 ]
 
-export const Testjson:object[] = [
+interface item {
+    smalltask_id: string
+      smalltask: string
+      task_id:string
+  }
+
+//   interface smalltask {
+// 	  string
+//   }
+  
+  interface Array {
+    task_id:string
+    task:string
+	motivate:string
+    created_at:string
+    smalltask:string[]
+  }
+
+
+export const Testjson:Array[] = [
 	{
+		"task_id": "iu0f4ab2-ee0a-474f-919a-540fb3de16df",
+		"task": "甘いもの食べる",
+		"motivate":"",
+		"created_at": "2022-11-21",
+		"smalltask": ["コンビニに買いに行く","好きそうなものを選ぶ","レジにいく"]
+	},
+    {
 		"task_id": "be0f4ab2-ee0a-474f-919a-540fb3de16df",
 		"task": "甘いもの食べる",
+		"motivate":"",
+		"created_at": "2022-11-21",
+		"smalltask": ["コンビニに買いに行く",]}
+]
+
+const Testjson_copy:any = [
+	{
+		"task_id": "iu0f4ab2-ee0a-474f-919a-540fb3de16df",
+		"task": "甘いもの食べる",
+		"motivate":"",
 		"created_at": "2022-11-21",
 		"smalltask": [
 			{
@@ -23,31 +59,12 @@ export const Testjson:object[] = [
 				"smalltask": "レジにいく",
 				"task_id": "be0f4ab2-ee0a-474f-919a-540fb3de16df"
 			},
-			{
-				"smalltask_id": "43258d0f-a328-4bb2-a292-b03f1efe544e",
-				"smalltask": "精算する",
-				"task_id": "be0f4ab2-ee0a-474f-919a-540fb3de16df"
-			},
-			{
-				"smalltask_id": "54abdb2f-0241-497b-b94d-0e66d5377057",
-				"smalltask": "車に乗る",
-				"task_id": "be0f4ab2-ee0a-474f-919a-540fb3de16df"
-			},
-			{
-				"smalltask_id": "35afea6f-5335-4ae1-91b3-79b6716a5a25",
-				"smalltask": "自宅まで運転する",
-				"task_id": "be0f4ab2-ee0a-474f-919a-540fb3de16df"
-			},
-			{
-				"smalltask_id": "2870ab71-7183-4fe5-86de-66dd3fffa321",
-				"smalltask": "家で甘いものを食べる",
-				"task_id": "be0f4ab2-ee0a-474f-919a-540fb3de16df"
-			},
 		]
 	},
     {
 		"task_id": "be0f4ab2-ee0a-474f-919a-540fb3de16df",
 		"task": "甘いもの食べる",
+		"motivate":"",
 		"created_at": "2022-11-21",
 		"smalltask": [
 			{
