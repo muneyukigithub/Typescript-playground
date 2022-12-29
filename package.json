@@ -14,8 +14,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "webpack serve",
     "start-react": "react-scripts start",
+    "start-https": "webpack serve --https true --https-cert localhost.pem —http-key localhost-key.pem",
     "build": "webpack --mode=production",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
