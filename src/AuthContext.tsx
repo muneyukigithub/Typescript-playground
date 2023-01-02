@@ -27,7 +27,7 @@ export const AuthProvider: React.FC<any> = ({ children }) => {
 
     const logout = async () => {
         const returnuser = user;
-        await fetch("http://127.0.0.1:8000/logout/", {
+        await fetch("http://127.0.0.1:8000/api/v1/logout/", {
             method: "GET",
             credentials: "include"
         }).then(() => {
@@ -39,6 +39,8 @@ export const AuthProvider: React.FC<any> = ({ children }) => {
     }
 
     const execlogin = async (username: any, password: any) => {
+        const loginuser = { "loginuser": "" }
+
         await fetch("http://127.0.0.1:8000/api/v1/token/", {
             method: "POST",
             headers: {
@@ -50,7 +52,7 @@ export const AuthProvider: React.FC<any> = ({ children }) => {
 
         }).then(() => {
 
-            const res = fetch("http://127.0.0.1:8000/user/", {
+            const res = fetch("http://127.0.0.1:8000/api/v1/user/", {
                 method: "GET",
                 credentials: 'include',
             })
@@ -58,11 +60,14 @@ export const AuthProvider: React.FC<any> = ({ children }) => {
         }).then((res) => {
             return Promise.resolve(res.json())
         }).then(json => {
-            console.log(json)
+            loginuser["loginuser"] = json.username;
             setuser(json.username)
             setIsAuth(true)
-            return json.username
         })
+
+        return loginuser
+
+
 
 
 

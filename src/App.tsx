@@ -8,6 +8,7 @@ import Sidebar from './Sidebar'
 import { Islogin } from 'Islogin'
 import { Front } from 'Front'
 import { AuthProvider } from 'AuthContext'
+import SignIn from 'Signin'
 import RegistComplete from 'RegistComplete'
 import Profile from 'Profile'
 import UserDeactivateComplete from 'UserDeactivateComplete'
@@ -22,7 +23,7 @@ const App: React.FC = () => {
           <Route path="/" element={<Front />} />
 
           {/* ログイン画面 */}
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<SignIn />} />
 
           {/* ユーザー登録画面 */}
           <Route path="/regist" element={<Register />} />

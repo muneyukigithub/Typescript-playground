@@ -32,6 +32,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import CheckIcon from '@mui/icons-material/Check';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 import { red } from '@mui/material/colors';
 import { v4 as uuid4 } from 'uuid';
@@ -94,6 +95,7 @@ interface taskArray {
   motivate: string
   created_at: string
   smalltask: string[]
+  short: boolean
 }
 
 const count = 1
@@ -118,21 +120,21 @@ const Main: React.FC = () => {
 
 
 
-  const jsonsetedit = () => {
-    const taskjson: taskArray[] = Array(Testjson.length);
-    for (let i = 0; i < Testjson.length; i++) {
-      taskjson[i] = { edit: true, ...Testjson[i] };
-    }
+  // const jsonsetedit = () => {
+  //   const taskjson: taskArray[] = Array(Testjson.length);
+  //   for (let i = 0; i < Testjson.length; i++) {
+  //     taskjson[i] = { edit: true, ...Testjson[i] };
+  //   }
 
-    return taskjson;
-  }
+  //   return taskjson;
+  // }
 
-  const taskjson: taskArray[] = jsonsetedit();
+  // const taskjson: taskArray[] = jsonsetedit();
 
-  const getmaintaskdata = (getjson: object) => {
+  // const getmaintaskdata = (getjson: object) => {
 
-    return
-  }
+  //   return
+  // }
 
 
   // test2[0] = {edit:true,...test2[0]};
@@ -162,7 +164,7 @@ const Main: React.FC = () => {
 
   // 編集フラグ
   // const [edit,setedit] = React.useState<boolean>(true);
-  const [editid, seteditid] = React.useState(null)
+  // const [editid, seteditid] = React.useState(null)
 
   const list: any[] = []
 
@@ -170,9 +172,19 @@ const Main: React.FC = () => {
   //   return { id, date, name, shipTo, paymentMethod, amount }
   // }
 
-  const createtaskobject = () => {
-    // return { id: tasks.length + 1, value: '', edit: true }
-    return { task_id: uuid4(), edit: true, motivate: "", task: "", created_at: "", smalltask: [] };
+  // const createtaskobject = () => {
+  //   // return { id: tasks.length + 1, value: '', edit: true }
+  //   return { task_id: uuid4(), edit: true, motivate: "", task: "", created_at: "", smalltask: [] };
+  // }
+
+  const changeshort = (e: any) => {
+    console.log(e.target.id)
+    console.log(tasks)
+    // console.log(e.target.id)
+
+    const newtasks = tasks.slice();
+    settasks(newtasks.map((value) => value.task_id === e.target.id ?
+      { ...value, short: !value.short } : value))
   }
 
   const addtask = () => {
@@ -180,7 +192,7 @@ const Main: React.FC = () => {
     // console.log(tasks);
     const newtasks = tasks.slice();
     const newuuid = uuid4();
-    newtasks[newtasks.length] = { task_id: newuuid, edit: true, motivate: "", task: "", created_at: "", smalltask: [] };
+    newtasks[newtasks.length] = { task_id: newuuid, edit: true, motivate: "", task: "", created_at: "", smalltask: [], short: false };
     settasks(newtasks);
 
     setmaintaskform([...maintaskform, { task_id: newuuid, form: "" }])
@@ -217,6 +229,8 @@ const Main: React.FC = () => {
     setAnchorEL(null)
     setCurrentRow(null)
   }
+
+
 
 
   const deletetask = (e: any) => {
@@ -370,49 +384,62 @@ const Main: React.FC = () => {
     const edit = task.edit;
 
     list.push(
-      <Paper
-        elevation={3}
-        sx={{
-          // mb: 3,
-          px: 3,
-          pb: 3,
-          display: 'flex',
-          flexDirection: 'column',
-          minHeight: "240px",
 
-        }}
-      >
-
-
-
-        <Box
+      task.short ? <MinPaper taskname={task.task} changeEvent={changeshort} taskid={task.task_id} />
+        : <Paper
+          elevation={3}
           sx={{
-            height: '30px',
+            // mb: 3,
+            px: 3,
+            pb: 3,
             display: 'flex',
-            justifyContent: 'flex-end',
+            flexDirection: 'column',
+            minHeight: "240px",
+
           }}
         >
 
-          {
-            edit ?
-              <Button onClick={editchange} id={task.task_id} sx={{ color: "green", fontWeight: "bold" }}>
-                <EditIcon color="success" />タスクカードの編集を確定する
-                {/* <Typography sx={{color:"green"}}>タスクカードの編集を確定する</Typography> */}
-              </Button>
-              : <Button onClick={editchange} id={task.task_id} sx={{ color: "green" }}>
-                <CheckIcon color="success" />
-                タスクカードを編集する
-                {/* <Typography sx={{color:"green"}}>タスクカードを編集する</Typography>  */}
-              </Button>
-          }
 
-          <Button id={task.task_id} onClick={deletetask} sx={{ color: "red" }}>
-            <DeleteIcon sx={{ color: red[500], ml: 2 }} />
-            タスクカードを削除する
-            {/* <Typography sx={{color:"red"}}></Typography> */}
-          </Button>
+          <KeyboardArrowDownIcon id={task.task_id} onClick={changeshort} sx={{ textAlign: "1px solid black" }} />
 
-          {/* <IconButton
+          {/* <Button id={task.task_id} onClick={changeshort}>
+            <KeyboardArrowDownIcon />
+          {'∨'}
+          </Button> */}
+          {/* <button id={task.task_id} onClick={changeshort}>
+            <KeyboardArrowDownIcon />
+          </button> */}
+
+
+
+          <Box
+            sx={{
+              height: '30px',
+              display: 'flex',
+              justifyContent: 'flex-end',
+            }}
+          >
+
+            {
+              edit ?
+                <Button onClick={editchange} id={task.task_id} sx={{ color: "green", fontWeight: "bold" }}>
+                  <EditIcon color="success" />タスクカードの編集を確定する
+                  {/* <Typography sx={{color:"green"}}>タスクカードの編集を確定する</Typography> */}
+                </Button>
+                : <Button onClick={editchange} id={task.task_id} sx={{ color: "green" }}>
+                  <CheckIcon color="success" />
+                  タスクカードを編集する
+                  {/* <Typography sx={{color:"green"}}>タスクカードを編集する</Typography>  */}
+                </Button>
+            }
+
+            <Button id={task.task_id} onClick={deletetask} sx={{ color: "red" }}>
+              <DeleteIcon sx={{ color: red[500], ml: 2 }} />
+              タスクカードを削除する
+              {/* <Typography sx={{color:"red"}}></Typography> */}
+            </Button>
+
+            {/* <IconButton
             edge="end"
             aria-label="account of current user"
             aria-controls={menuId}
@@ -426,7 +453,7 @@ const Main: React.FC = () => {
           >
             <MoreHorizIcon />
           </IconButton> */}
-          {/* <Menu
+            {/* <Menu
             anchorEl={anchorEl}
             anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
             id={menuId}
@@ -439,36 +466,36 @@ const Main: React.FC = () => {
             <MenuItem onClick={(e) => handleEdit(task)}>編集</MenuItem>
             <MenuItem onClick={(e) => handleCreate(task)}>作成</MenuItem>
           </Menu> */}
-        </Box>
+          </Box>
 
-        <Grid container justifyContent="center" direction="column" spacing={2}>
+          <Grid container justifyContent="center" direction="column" spacing={2}>
 
 
-          {/* やることフェーズコンポーネント */}
+            {/* やることフェーズコンポーネント */}
 
-          <Grid item>
-            <Maintask editflag={edit} task_id={task.task_id} taskdata={task.task} maintaskform={maintaskform} setmaintaskform={setmaintaskform} />
+            <Grid item>
+              <Maintask editflag={edit} task_id={task.task_id} taskdata={task.task} maintaskform={maintaskform} setmaintaskform={setmaintaskform} />
+            </Grid>
+
+            {/* モチベータフェーズコンポーネント */}
+            <Grid item>
+              <Motivate editflag={edit} task_id={task.task_id} taskdata={task.motivate} motivatetaskform={motivatetaskform} setmotivatetaskform={setmotivateform} />
+            </Grid>
+
+            {/* 細分化フェーズコンポーネント */}
+            <Grid item>
+              <Smalltask editflag={edit} task_id={task.task_id} taskdata={task.smalltask} smalltaskform={smalltaskform} setsmalltaskform={setsmalltaskform} addsmalltask={addsmalltask} />
+            </Grid>
+
           </Grid>
 
-          {/* モチベータフェーズコンポーネント */}
-          <Grid item>
-            <Motivate editflag={edit} task_id={task.task_id} taskdata={task.motivate} motivatetaskform={motivatetaskform} setmotivatetaskform={setmotivateform} />
-          </Grid>
-
-          {/* 細分化フェーズコンポーネント */}
-          <Grid item>
-            <Smalltask editflag={edit} task_id={task.task_id} taskdata={task.smalltask} smalltaskform={smalltaskform} setsmalltaskform={setsmalltaskform} addsmalltask={addsmalltask} />
-          </Grid>
-
-        </Grid>
 
 
 
 
+          {/* <Box>{task.edit ? <Edit {...task} /> : <Typo {...task} />}</Box> */}
 
-        {/* <Box>{task.edit ? <Edit {...task} /> : <Typo {...task} />}</Box> */}
-
-        {/* {task.edit ? (
+          {/* {task.edit ? (
           <Button
             onClick={(e) => handleCreate(task)}
             variant="contained"
@@ -479,7 +506,7 @@ const Main: React.FC = () => {
         ) : (
           ''
         )} */}
-      </Paper>
+        </Paper>
     )
   })
 

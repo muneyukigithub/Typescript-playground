@@ -8,7 +8,7 @@ import RegistComplete from "RegistComplete"
 const Register: React.FC = () => {
   const [user, setuser] = useState("");
   const [password, setpassword] = useState("");
-  const url = "http://127.0.0.1:8000/Test/"
+  const url = "http://127.0.0.1:8000/api/v1/userRegist/"
   const Auth = useAuth();
   const navigate = useNavigate();
 

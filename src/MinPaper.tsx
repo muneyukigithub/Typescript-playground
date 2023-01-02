@@ -1,4 +1,4 @@
-import { Paper, Typography } from '@mui/material'
+import { Button, Paper, Typography } from '@mui/material'
 import React from 'react'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -13,7 +13,9 @@ const MinPaper = (props: any) => {
                     minHeight: "70px",
                     display: "flex"
                 }}>
-                <ArrowForwardIosIcon />
+                <Button id={props.taskid} onClick={props.changeEvent}>
+                    {'>'}
+                </Button>
                 <Typography variant="h4">
                     {props.taskname}
                 </Typography>
