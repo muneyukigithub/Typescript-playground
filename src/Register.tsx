@@ -40,12 +40,9 @@ const Register: React.FC = () => {
       if (res.status == 200) {
         if (Auth.login(user, password)) {
           navigate("/registcomplete")
-        } else {
-
         }
-      } else {
-
       }
+
       console.log(res.status)
       // navigate("/main")
       // if(res=="  1成功"){

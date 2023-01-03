@@ -48,7 +48,7 @@ module.exports = {
   // }
   devServer: {
     // webpack-dev-serverの公開フォルダ
-    // contentBase: __dirname+'/dist',
+    // contentBase: __dirname + '/dist',
     open: true,//ブラウザ立ち上げを自動化
     static: {
       directory: __dirname + '/public',

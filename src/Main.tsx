@@ -48,6 +48,8 @@ import { Testjson } from 'Testjson'
 import { useEffect } from 'react'
 import { useAuth } from 'AuthContext'
 import MinPaper from 'MinPaper'
+import { Header } from 'Header'
+import { borderRadius } from '@mui/system'
 
 //関数コンポーネントがchildrenを受け取る場合の型定義
 // type Props = {
@@ -392,9 +394,12 @@ const Main: React.FC = () => {
             // mb: 3,
             px: 3,
             pb: 3,
+            m: 3,
             display: 'flex',
             flexDirection: 'column',
             minHeight: "240px",
+            borderRadius: 3,
+
 
           }}
         >
@@ -417,6 +422,7 @@ const Main: React.FC = () => {
               height: '30px',
               display: 'flex',
               justifyContent: 'flex-end',
+
             }}
           >
 
@@ -517,118 +523,19 @@ const Main: React.FC = () => {
     </Box>
   )
 
-
-
-
-  // const logout = async () => {
-  //   await fetch("http://127.0.0.1:8000/logout/", {
-  //     method: "GET",
-  //     credentials: "include"
-  //   }).then(() => {
-  //     setusername("")
-  //   })
-  // }
-  // const login = async () => {
-
-
-
-  //   await fetch("http://127.0.0.1:8000/api/v1/token/", {
-  //     method: "POST",
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     credentials: 'include',
-  //     body: JSON.stringify({ email: "admin@admin.com", password: "password" })
-
-  //   }).then(() => {
-
-  //     const res = fetch("http://127.0.0.1:8000/user/", {
-  //       method: "GET",
-  //       credentials: 'include',
-  //     })
-  //     return Promise.resolve(res);
-  //   }).then((res) => {
-  //     return Promise.resolve(res.json())
-  //   }).then(json => {
-  //     console.log(json)
-  //     setusername(json.username)
-  //   })
-
-  // }
-
-
-
-
-
-  // console.log(response)
-
-
-
-
-
   return (
-    <>
-
+    < Box sx={{ backgroundColor: '#EEEEEE', minHeight: "100vh", }}>
+      <Header />
       <CssBaseline />
-      <AppBar position="relative" sx={{ backgroundColor: '#fff', p: 0, boxShadow: '0' }}>
-        <Toolbar sx={{ ml: '16px' }}>
-          {/* <Box
-            sx={{
-              backgroundColor: '#EEEEEE',
-              borderRadius: '46px',
-              width: '70%',
-              display: 'inline-flex',
-            }}
-          >
-            <Box
-              sx={{
-                py: '5px',
-                pl: '25px',
-                display: 'flex',
-                justifyContent: 'center',
-              }}
-            >
-              <SearchIcon color="primary" />
-            </Box>
-            <InputBase placeholder="Search…" />
-          </Box> */}
-
-          <Box sx={{ flexGrow: 1 }} />
-
-          <Box sx={{ display: 'flex', mr: "20px" }}>
-            {/* <Button variant="contained" sx={{ width: '100px', ml: '20px' }}> */}
-            <Link to="/">
-              使い方
-            </Link>
-            {/* </Button> */}
-
-            {username ?
-              <Typography sx={{ color: "red" }}>
-                <Link to="/profile">
-                  {username}
-                </Link>
-              </Typography>
-              :
-              <Button variant="contained" sx={{ width: '100px', ml: '20px' }} onClick={logout}>
-                ログアウト
-              </Button>
-            }
-
-          </Box>
-        </Toolbar>
-      </AppBar>
-
-      <Grid container spacing={0}>
+      <Grid container spacing={0} sx={{ pt: 8 }}>
         <Grid item xs={12} md={9}>
           <Box
-            sx={{
-              backgroundColor: 'white',
-              height: '100vh',
-              mx: 5,
-              mt: 1,
-            }}
+          // sx={{
+          //   mx: 5,
+          //   mt: 1,
+          // }}
           >
-            <Typography
+            {/* <Typography
               sx={{
                 mb: '30px',
                 fontSize: '30px',
@@ -636,7 +543,7 @@ const Main: React.FC = () => {
               }}
             >
               タスクカード
-            </Typography>
+            </Typography> */}
             {list}
 
             {/* <Sample /> */}
@@ -649,10 +556,20 @@ const Main: React.FC = () => {
         </Grid>
 
         <Grid item xs={0} md={3}>
-          <Box sx={{ backgroundColor: '#EEEEEE', height: '100vh', minWidth: '' }}></Box>
+          <Paper elevation={3}
+            sx={{
+              height: "200px",
+              borderRadius: 5,
+              backgroundColor: "#FFF",
+              m: 3
+            }}
+
+
+          ></Paper>
+          {/* <Box sx={{ backgroundColor: '#EEEEEE', height: '100vh', minWidth: '' }}></Box> */}
         </Grid>
       </Grid>
-    </>
+    </Box >
   )
 }
 

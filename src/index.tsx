@@ -5,4 +5,4 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import AxiosTest from './AxiosTest'
 
-ReactDOM.render(<Profile />, document.getElementById('root'))
+ReactDOM.render(<App />, document.getElementById('root'))

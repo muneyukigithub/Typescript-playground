@@ -1,7 +1,7 @@
-import { Button, Card, Paper, Theme } from '@mui/material';
+import { Avatar, Button, Card, CardContent, CardMedia, Grid, Paper, Theme } from '@mui/material';
 import { useAuth } from 'AuthContext';
 import React from 'react'
-// import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import UserDeactivateComplete from 'UserDeactivateComplete';
 
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,7 +10,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { Link as RouterLink } from 'react-router-dom'
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@mui/styles';
+// import { makeStyles } from '@mui/material';
+// import { makeStyles, createStyles } from '@material-ui/core';
 
 const Copyright = () => {
     return (
@@ -25,22 +27,6 @@ const Copyright = () => {
     );
 }
 
-// const useStyles = makeStyles((theme: Theme) => createStyles({
-//     card: {
-//         margin: 5,
-//         padding: 5
-//     }
-// })
-// );
-
-const useStyles = makeStyles({
-    root: {
-        borderRadius: 19,
-    }
-})
-
-
-
 // 呼び出しシグネチャ（アロータイプ）
 type Func5 = (theme: Theme) => object;
 
@@ -48,42 +34,37 @@ type Func5 = (theme: Theme) => object;
 type Func6 = (a: string) => void;
 
 export const Profile = (props: any) => {
-    const classes = useStyles();
 
-    // const navigate = useNavigate()
-    // const Auth = useAuth();
+    const navigate = useNavigate()
+    const Auth = useAuth();
     const url = "http://127.0.0.1:8000/UserDeactivate/"
-    // const UserDeactivate = async () => {
-    //     await fetch(url, {
-    //         method: "POST",
-    //         headers: { 'Content-Type': 'application/json' },
-    //         // body: JSON.stringify({ "email": Auth.user })
-    //     }).then((res) => {
-    //         if (res.status === 200) {
-    //             console.log(res.status);
-    //             // return Auth.logout()
-    //             return "e"
+    const UserDeactivate = async () => {
+        await fetch(url, {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            // body: JSON.stringify({ "email": Auth.user })
+        }).then((res) => {
+            if (res.status === 200) {
+                console.log(res.status);
+                // return Auth.logout()
+                return "e"
 
-    //             // Promise.resolve(r)
+                // Promise.resolve(r)
 
-    //         } else {
-    //             return
+            } else {
+                return
 
-    //         }
-    //     }).then((res) => {
-    //         console.log(res);
-    //         if (res) {
-    //             navigate("/UserDeactivateComplete", { state: { user: res } })
-    //         }
+            }
+        }).then((res) => {
+            console.log(res);
+            if (res) {
+                navigate("/UserDeactivateComplete", { state: { user: res } })
+            }
 
-    //         // navigate("/UserDeactivateComplete")
+            // navigate("/UserDeactivateComplete")
 
-    //     })
-    // }
-
-
-
-
+        })
+    }
 
     return (
         <Box
@@ -96,24 +77,49 @@ export const Profile = (props: any) => {
         >
 
             <CssBaseline />
-            <Container component="main" sx={{ mt: 8, mb: 2, }} maxWidth="sm">
-                <Card className={classes.root}>
+            <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="sm">
+                <Card>
+                    <Box sx={{ height: "20px", backgroundColor: "dodgerblue" }}></Box>
+                    {/* <Grid container spacing={0} sx={{ display: "flex", alignItems: "center" }}> */}
+                    <Grid container spacing={0}>
+                        <Grid item xs={6}>
+                            <Avatar
+                                alt=""
+                                src="diary.jpeg"
+                                sx={{ width: 160, height: 160, m: 5 }}
+                            />
+
+                        </Grid>
+                        <Grid item xs={6} sx={{ borderLeft: "2px dotted gray", display: "flex", justifyContent: "center", flexDirection: "column" }}>
+                            <CardContent>
+                                <Typography variant="h5" gutterBottom>
+                                    Email
+                                </Typography>
+                                <Typography variant="h6" sx={{ ml: "20px", fontWeight: 50 }} gutterBottom>
+                                    admin@admin.com
+                                </Typography>
+                                {/* <Typography variant="h6" sx={{ mt: 3 }}>
+                                    メニュー
+                                </Typography>
+                                <Button variant="contained" sx={{ borderRadius: 16 }}>Email変更</Button>
+                                <Button variant="contained" sx={{ borderRadius: 16 }}>パスワード変更</Button> */}
+
+                            </CardContent>
+                        </Grid>
+                    </Grid>
+
+                    {/* 
+                    <CardMedia
+                        component="img"
+                        src=''
+                        title=''
+                            sx={{ minHeight: '30vh' }} /> */}
+
 
 
                 </Card>
-                <Typography variant="h2" component="h1" gutterBottom>
-                    Sticky footer
-                </Typography>
-                <Typography variant="h5" component="h2" gutterBottom>
-                    {'Pin a footer to the bottom of the viewport.'}
-                    {'The footer will move as the main element of the page grows.'}
-                </Typography>
-                <Typography variant="body1" gutterBottom>Sticky footer placeholder.</Typography>
-                <Box>
-                    {/* <RounterLink to="/login">
-                    <Typography variant="h5" color="primary">ログインする</Typography>
-                </RounterLink> */}
-                </Box>
+                <RouterLink to="/main">ホームへ</RouterLink>
+
             </Container>
         </Box >
     )

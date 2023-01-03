@@ -63,6 +63,8 @@ export const AuthProvider: React.FC<any> = ({ children }) => {
             loginuser["loginuser"] = json.username;
             setuser(json.username)
             setIsAuth(true)
+        }).catch(error => {
+            console.error('通信に失敗', error)
         })
 
         return loginuser

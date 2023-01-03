@@ -50,14 +50,14 @@ export const Front = () => {
 
                     <Link
                         component={RouterLink}
-                        to={"/login"}
+                        to={"/main"}
                         color="primary"
                         variant='h5'
                         gutterBottom
                         sx={{ textDecoration: "None", pt: 2 }}
 
                     >
-                        {"ログインする"}
+                        {"アプリを使う"}
                     </Link>
                 </Box>
 
