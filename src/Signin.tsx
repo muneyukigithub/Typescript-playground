@@ -37,6 +37,7 @@ export default function SignIn() {
     const [password, setpassword] = useState("");
     const Auth = useAuth();
     const navigate = useNavigate();
+    const url = ""
     // console.log(Auth.login("admin", "pass"));
 
     const changeuser = (e: any) => {
@@ -58,20 +59,37 @@ export default function SignIn() {
         console.log(password);
     }
 
-    const signin = async (event: React.FormEvent<HTMLFormElement>) => {
+    const signin = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        const data = new FormData(event.currentTarget);
+
         console.log("signin 到達")
-        const loginuser = (await Auth.login(user, password)).loginuser
+        Auth.login(data.get('email'), data.get('password')).then((response: any) => {
+            console.log(response)
+            // if (!(loginuser === "")) {
+            //     navigate("/main")
+
+            // }            
+        })
+
+    }
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+
+
+
+
+        const loginuser = (await Auth.login(data.get('email'), data.get('password'))).loginuser
         console.log(loginuser)
         if (!(loginuser === "")) {
             navigate("/main")
 
         }
-    }
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
+
+
         console.log({
             email: data.get('email'),
             password: data.get('password'),
@@ -79,75 +97,74 @@ export default function SignIn() {
     };
 
     return (
-        <ThemeProvider theme={theme}>
-            <Container component="main" maxWidth="xs">
-                <CssBaseline />
-                <Box
-                    sx={{
-                        marginTop: 8,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
-                        Sign in
-                    </Typography>
-                    <Box component="form" onSubmit={signin} noValidate sx={{ mt: 1 }}>
-                        <TextField
-                            onChange={changeuser}
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
-                            autoFocus
-                        />
-                        <TextField
-                            onChange={changepassword}
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                        />
-                        <FormControlLabel
+        <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <Box
+                sx={{
+                    marginTop: 8,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                }}
+            >
+                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                    <LockOutlinedIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                    ログイン
+                </Typography>
+                <Box component="form" onSubmit={signin} noValidate sx={{ mt: 1 }}>
+                    <TextField
+                        onChange={changeuser}
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="email"
+                        label="Email Address"
+                        name="email"
+                        autoComplete="email"
+                        autoFocus
+                    />
+                    <TextField
+                        onChange={changepassword}
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                        autoComplete="current-password"
+                    />
+                    {/* <FormControlLabel
                             control={<Checkbox value="remember" color="primary" />}
                             label="Remember me"
-                        />
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                        // onSubmit={signin}
-                        >
-                            Sign In
-                        </Button>
-                        <Grid container>
-                            <Grid item xs>
-                                <Link href="#" variant="body2">
-                                    Forgot password?
-                                </Link>
-                            </Grid>
-                            <Grid item>
-                                <Link href="#" variant="body2">
-                                    {"Don't have an account? Sign Up"}
-                                </Link>
-                            </Grid>
+                        /> */}
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                    // onSubmit={signin}
+                    >
+                        ログインする
+                    </Button>
+                    <Grid container>
+                        <Grid item xs>
+                            <Link href="#" variant="body2">
+                                パスワードを忘れた?
+                            </Link>
                         </Grid>
-                    </Box>
+                        <Grid item>
+                            <Link href="/Regist" variant="body2">
+                                {"アカウントを持っていない方はこちら"}
+                            </Link>
+                        </Grid>
+                    </Grid>
                 </Box>
-                <Copyright sx={{ mt: 8, mb: 4 }} />
-            </Container>
-        </ThemeProvider>
+            </Box>
+            <Copyright sx={{ mt: 8, mb: 4 }} />
+        </Container>
+
     );
 }

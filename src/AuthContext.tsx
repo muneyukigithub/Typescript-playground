@@ -21,7 +21,7 @@ export const AuthProvider: React.FC<any> = ({ children }) => {
     const [isAuth, setIsAuth] = useState(false)
     const navigate = useNavigate();
 
-    const login = (username: any, password: any) => {
+    const login = async (username: any, password: any) => {
         return execlogin(username, password)
     }
 
@@ -39,7 +39,7 @@ export const AuthProvider: React.FC<any> = ({ children }) => {
     }
 
     const execlogin = async (username: any, password: any) => {
-        const loginuser = { "loginuser": "" }
+        // const loginuser = { "loginuser": "" }
 
         await fetch("http://127.0.0.1:8000/api/v1/token/", {
             method: "POST",
@@ -60,19 +60,15 @@ export const AuthProvider: React.FC<any> = ({ children }) => {
         }).then((res) => {
             return Promise.resolve(res.json())
         }).then(json => {
-            loginuser["loginuser"] = json.username;
+            // loginuser["loginuser"] = json.username;
             setuser(json.username)
             setIsAuth(true)
         }).catch(error => {
             console.error('通信に失敗', error)
+            return false
         })
 
-        return loginuser
-
-
-
-
-
+        return true
     }
 
     const Auth = () => {

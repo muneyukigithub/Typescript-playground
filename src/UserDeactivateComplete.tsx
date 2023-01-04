@@ -1,21 +1,38 @@
 import { useAuth } from 'AuthContext';
 import { userInfo } from 'os';
 import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
+import { Avatar, Button, Card, CardContent, CardMedia, Grid, Paper, Theme } from '@mui/material';
+
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import Link from '@mui/material/Link';
+import { Link as RouterLink } from 'react-router-dom'
 
 const UserDeactivateComplete = () => {
-    const location = useLocation();
-    const data = location.state
-    console.log(data)
-
     return (
-        <div>
-            ユーザー退会が完了しました。
-            {data.user}
+        <Box
+            sx={{
+                minHeight: '100vh',
+                backgroundColor: '#EEEEEE',
+                p: 5
+            }}>
 
-            <Link to="/">ホーム画面に戻る</Link>
+            <Typography>ユーザー退会が完了しました。</Typography>
+            <Typography gutterBottom>admin@admin.com</Typography>
+            <Link
+                component={RouterLink}
+                to={"/main"}
+                color="primary"
+                variant='h6'
 
-        </div>
+                sx={{ textDecoration: "None", pt: 2 }}
+            >ホームへ
+            </Link>
+            <CssBaseline />
+        </Box >
     )
 }
 

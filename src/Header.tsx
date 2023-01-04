@@ -1,12 +1,13 @@
-import { AppBar, Toolbar, Box } from "@mui/material";
+import { AppBar, Toolbar, Box, Typography, Link, Button } from "@mui/material";
 import React from "react";
-import { Link } from "react-router-dom";
-
+import { Link as RouterLink } from "react-router-dom";
+import { useAuth } from 'AuthContext'
 
 export const Header = () => {
-
-    return <AppBar position="relative" sx={{ backgroundColor: '#fff', p: 0, boxShadow: '0', position: "fixed", top: 0 }}>
-        <Toolbar sx={{ ml: '16px' }}>
+    const Auth = useAuth();
+    const username = Auth.user;
+    return <AppBar sx={{ backgroundColor: "Transparent", top: 0, position: "static" }}>
+        <Toolbar sx={{ minHeight: "16px" }}>
             {/* <Box
         sx={{
           backgroundColor: '#EEEEEE',
@@ -28,29 +29,39 @@ export const Header = () => {
         <InputBase placeholder="Search…" />
       </Box> */}
 
-            <Box sx={{ flexGrow: 1 }} />
+            {/* <Box sx={{ flexGrow: 1 }} /> */}
 
-            <Box sx={{ display: 'flex', mr: "20px" }}>
-                {/* <Button variant="contained" sx={{ width: '100px', ml: '20px' }}> */}
-                <Link to="/">
-                    使い方
-                </Link>
-                {/* </Button> */}
+            {/* <Box sx={{ display: 'flex', mr: "20px", width: "100%" }}> */}
+            {/* <Button variant="contained" sx={{ width: '100px', ml: '20px' }}> */}
 
-                {/* {username ? 
-          <Typography sx={{ color: "red" }}>
-            <Link to="/profile">
-              {username}
+            <Link
+                component={RouterLink}
+                to={"/"}
+                color="primary"
+                sx={{ textDecoration: "None" }}
+            >
+                使い方
             </Link>
-          </Typography>
-                        <Button variant="contained" sx={{ width: '100px', ml: '20px' }} onClick={logout}>
-                        ログアウト
-                      </Button>
-          : <Link to="/main" ></Link>
 
-        } */}
+            {/* </Button> */}
 
-            </Box>
+            {username ?
+                <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "flex-end", alignItems: "center" }}>
+                    <Link
+                        component={RouterLink}
+                        to="/Profile"
+                        color="primary"
+                        sx={{ textDecoration: "None", mr: 2 }}
+                    >
+                        {username}  /
+                    </Link>
+                    <Button variant="outlined" onClick={Auth.logout} color="info">ログアウト</Button>
+
+                </Box>
+                : <Link></Link>
+            }
+
+            {/* </Box> */}
         </Toolbar>
     </AppBar>
 };

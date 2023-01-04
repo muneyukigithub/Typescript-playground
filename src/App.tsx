@@ -38,7 +38,8 @@ const App: React.FC = () => {
           <Route path="/UserDeactivateComplete" element={<UserDeactivateComplete />} />
 
           {/* メイン画面 */}
-          <Route path="/main" element={<Islogin component={<Main />} redirect="login" />} />
+          {/* <Route path="/main" element={<Islogin component={<Main />} redirect="login" />} /> */}
+          <Route path="/main" element={<Main />} />
 
           {/* not found画面 */}
           <Route path="*" element={<NotFound />} />
